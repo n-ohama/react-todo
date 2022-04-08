@@ -54,7 +54,11 @@ export const App = () => {
         inputText={inputText}
         onClick={addTodo}
         onChange={changeInput}
+        isDisabled={todos.length >= 5}
       />
+      {/** alert area */}
+      {todos.length >= 5 && <p style={{ color: 'red', marginLeft: '8px' }}>・5個までしか追加できません</p>}
+
       {/** incompleted area */}
       <IncompletedArea
         incompTodos={todos}
