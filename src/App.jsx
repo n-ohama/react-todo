@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { CompletedArea } from "./components/completed_area";
+import { IncompletedArea } from "./components/incompleted_area";
+import { InputArea } from "./components/input_area";
 import "./styles.css";
 
 export const App = () => {
@@ -47,43 +50,19 @@ export const App = () => {
   return (
     <>
       {/** input area */}
-      <div className="input_area">
-        <input
-          placeholder="TODOを入力"
-          value={inputText}
-          onChange={changeInput}
-        />
-        <button onClick={addTodo}>追加</button>
-      </div>
+      <InputArea
+        inputText={inputText}
+        onClick={addTodo}
+        onChange={changeInput}
+      />
       {/** incompleted area */}
-      <div className="incomplete_area">
-        <p className="title">未完了のTODO</p>
-        <ul>
-          {todos.map((todo, index) => {
-            return (
-              <li key={index} className="list_row">
-                <div>{todo}</div>
-                <button onClick={() => toggleToCompleted(index)}>完了</button>
-                <button onClick={() => remove(index)}>削除</button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <IncompletedArea
+        incompTodos={todos}
+        remove={remove}
+        toggle={toggleToCompleted}
+      />
       {/** completed area */}
-      <div className="complete_area">
-        <p className="title">完了のTODO</p>
-        <ul>
-          {finishTodos.map((finishTodo, index) => {
-            return (
-              <li key={index} className="list_row">
-                <div>{finishTodo}</div>
-                <button onClick={() => undo(index)}>戻す</button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <CompletedArea compTodos={finishTodos} undoFunc={undo} />
     </>
   );
 };
